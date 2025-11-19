@@ -1,128 +1,91 @@
-🌀 AD-MoE: Adaptive Dilation Mixture-of-Experts for Time Series Forecasting
-<p align="center"> <img src="https://raw.githubusercontent.com/github/explore/main/topics/time-series/time-series.png" width="120"> </p> <p align="center"><b>Multi-scale · Adaptive · Efficient · Accurate</b></p> <p align="center"> <a href="https://github.com/thuml/Time-Series-Library"><img src="https://img.shields.io/badge/Base-TSLib-blue?logo=tensorflow&logoColor=white"></a> <img src="https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python"> <img src="https://img.shields.io/badge/PyTorch-1.12+-red.svg?logo=pytorch"> <img src="https://img.shields.io/badge/License-MIT-green.svg"> <img src="https://img.shields.io/badge/Status-Active-brightgreen"> </p>
-⭐ Overview
+AD-MoE
 
-AD-MoE (Adaptive Dilation Mixture-of-Experts) is a time-series forecasting framework built on top of Tsinghua University’s Time Series Library (TSLib).
+This repository contains the official implementation of the AD-MoE model.
 
-To ensure data confidentiality for industrial projects, this repository demonstrates the workflow using the public ETTh1 dataset.
-All experiments are designed to run inside Jupyter Notebooks, allowing easy visualization and reproducibility without requiring terminal .sh scripts.
+This project is built upon the Time-Series-Library (TSLib) framework developed by Tsinghua University. We have migrated the original command-line based execution (.sh scripts) to an interactive Jupyter Notebook (.ipynb) environment to facilitate results visualization, code debugging, and analysis.
 
-📁 Repository Structure
+📚 Directory Structure
+
+The project consists of the following core directories:
+
 AD-MoE/
-│
-├── data_provider/             # Data loading & preprocessing
-├── exp/                       # Training/validation/testing logic (adapted from TSLib)
-├── layers/                    # Neural network layers used by models
-├── models/
-│     ├── AD_MoE.py            # Main AD-MoE model
-│     ├── ablation_variants.py # Ablation experiment variants
-│     └── ...                  # Baseline models from TSLib
-│
-├── tutorial/
-│     ├── forecasting.ipynb        # Main experiment notebook
-│     ├── ABLATION.ipynb           # Ablation studies
-│     ├── baseline.ipynb           # Baseline model comparison
-│     └── process_Data.ipynb       # ETTh1 preprocessing example
-│
-├── utils/                    # Helper tools
-├── checkpoints/             # Auto-saved model weights
-└── test_results/            # Auto-saved predictions & metrics
-
-🛠 Installation
-Clone the repository and install dependencies:
-git clone https://github.com/YourName/AD-MoE.git
-cd AD-MoE
-pip install -r requirements.txt
-
-Installation Flow (Diagram)
-+------------------------------------------------------+
-| Step 1: Clone the repository                         |
-| git clone https://github.com/YourName/AD-MoE.git     |
-+------------------------------------------------------+
-                         |
-                         v
-+------------------------------------------------------+
-| Step 2: Install required dependencies                |
-| pip install -r requirements.txt                      |
-+------------------------------------------------------+
-                         |
-                         v
-+------------------------------------------------------+
-| Step 3: Launch Jupyter Notebook                      |
-| jupyter notebook                                     |
-+------------------------------------------------------+
-
-🚀 Quick Start
-1. Run the forecasting experiment
-
-Open:
-
-tutorial/forecasting.ipynb
+├── data_provider/      # Data loading and processing logic
+├── exp/                # Experiment execution scripts (Train/Vali/Test functions, adapted from TSLib)
+├── layers/             # Basic neural network layers (from TSLib)
+├── models/             # Model definitions
+│   ├── AD_MoE.py             # [Core Code] Main file for the AD-MoE model
+│   ├── ablation_variants.py  # [Core Code] Model variants for ablation studies
+│   └── ...                   # Other built-in TSLib models (Transformer, DLinear, etc.)
+├── tutorial/           # Running scripts and tutorials (Jupyter Notebooks)
+│   ├── process_Data.ipynb    # Data preprocessing script
+│   ├── forecasting.ipynb     # Main experiment script (AD-MoE model)
+│   ├── baseline.ipynb        # Script for running baseline models
+│   ├── ABLATION.ipynb        # Script for running ablation studies
+│   ├── checkpoints/          # (Auto-generated) Path for saving model weights
+│   └── test_results/         # (Auto-generated) Prediction results and visualization outputs
+└── utils/              # General utility functions
 
 
-This notebook includes:
+🧬 Model Introduction
 
-ETTh1 data loading
+The following core code is implemented in the models directory:
 
-AD-MoE training and validation
+AD_MoE.py: The architecture of the AD-MoE model proposed in this paper.
 
-Evaluation and visualization
+ablation_variants.py: Model variants used to verify the effectiveness of different components in ablation studies.
 
-Automatic saving to /checkpoints and /test_results
+Additionally, we have retained the mainstream time series forecasting models organized in TSLib as baselines for comparison.
 
-2. Run ablation studies
+💾 Datasets
 
-Open:
+Note: The original dataset used in the paper involves confidential information and cannot be made public.
 
-tutorial/ABLATION.ipynb
+In this repository, we use the ETTh1 (Electricity Transformer Temperature) dataset as a demonstration example to ensure that the code runs smoothly and the experimental process can be reproduced.
 
+Data processing logic is located in the data_provider folder.
 
-Ablation variants are implemented in:
+If you need to use custom data, please refer to tutorial/process_Data.ipynb for preprocessing.
 
-models/ablation_variants.py
+🚀 Usage
 
+Unlike the traditional TSLib which uses terminal .sh files, this project uses the more user-friendly Jupyter Notebook format. Please run the code in the tutorial folder in the following order:
 
-Available variants:
+1. Environment Preparation
 
-Variant	Description
-A1: RandomFusion	Replace learnable gating with random weights
-A2: No-TCN	Disable temporal encoder
-A3: FixedGating	Use constant fusion weights
-3. Run baseline models
+Please ensure that the necessary Python dependencies are installed (Python 3.8+ is recommended).
 
-Open:
+2. Run Main Experiment (Forecasting)
 
-tutorial/baseline.ipynb
+Open and run tutorial/forecasting.ipynb.
 
+This file contains the complete process for model training, validation, and testing.
 
-This notebook reproduces multiple TSLib baseline models and compares them with AD-MoE.
+The core model AD_MoE is called here.
 
-🎯 Model Architecture (Placeholder)
+After execution, model weights will be saved to tutorial/checkpoints/, and prediction results will be saved to tutorial/test_results/.
 
-Replace the image below with your actual AD-MoE architecture diagram (PNG/SVG).
+3. Run Comparison Experiments (Baselines)
 
-<p align="center"> <img src="https://raw.githubusercontent.com/github/explore/main/topics/machine-learning/machine-learning.png" width="480"> </p> <p align="center"><i>▲ Placeholder for AD-MoE Architecture</i></p>
-📈 Example Results (Placeholder)
+Open and run tutorial/baseline.ipynb.
 
-You may insert forecasting curves, loss plots, or ablation charts here.
+This file is configured with the environment for running baseline models to generate comparison data.
 
-<p align="center"> <img src="https://raw.githubusercontent.com/github/explore/main/topics/matplotlib/matplotlib.png" width="520"> </p> <p align="center"><i>▲ Placeholder for experimental results</i></p>
-📚 Acknowledgements
+4. Run Ablation Studies
 
-This repository builds upon:
+Open and run tutorial/ABLATION.ipynb.
 
-Tsinghua University — Time Series Library (TSLib)
+This file calls the model variants in models/ablation_variants.py to verify the contribution of each module.
 
-https://github.com/thuml/Time-Series-Library
+📊 Results
 
-We greatly appreciate their contributions to the time-series research community.
+All experimental output results (including logs, visualization charts, and prediction values) will be automatically saved in the following two folders under the tutorial directory:
 
-📜 License
+checkpoints/: Stores trained model parameters.
 
-This project is released under the MIT License.
+test_results/: Stores prediction result files for the test set (usually numpy arrays or visualization images).
 
-📩 Contact
+🔗 Acknowledgement
 
-For questions, collaboration, or industrial applications of time-series modeling, feel free to reach out:
+The code framework of this project is primarily based on the Time-Series-Library open-sourced by the Machine Learning Group of the School of Software, Tsinghua University (THUML). We are very grateful for their outstanding contributions and organization in the field of time series analysis.
 
-Email: danniew@yeah.net
+Time-Series-Library (TSLib): https://github.com/thuml/Time-Series-Library
